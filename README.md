@@ -1,68 +1,104 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Quick start to create ReactJs app
 
-## Available Scripts
+## Commands to create a project
 
-In the project directory, you can run:
+Create basic project with simple structure which can be visible on http://localhost:3000
+```angular2html
+npm create-react-app team-app-reactjs-tutorial
+cd team-app-reactjs-tutorial
+npm start
+```
 
-### `npm start`
+To build project you need this file:
+- public/index.html
+- src/index.js
+Other files can be deleted or renamed. Files JS and CSS must be located inside src directory.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Create team app
+React have a few different kinds of components e.g.: React.Component.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Create three components which will use by links:
+- Home.js
+```angular2html
+import React from 'react';
 
-### `npm test`
+const Home = () => {
+    return (
+        <div className="container">
+            <h1>Home page</h1>
+        </div>
+    );
+}
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default Home;
+```
+- Team.js
+- NewTeam.js 
 
-### `npm run build`
+Routing is defined in component which has links to other components. In our case App.js has menu with links, so this is 
+place where should be defined routes. 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Add routing to ReactJS. First install package react-router-dom
+```angular2html
+npm install --save react-router-dom
+```
+or 
+```angular2html
+yarn add react-router-dom
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+In App.js in import are three imports:
+```angular2html
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+```
+Router is a main component where is put all routs definition. 
+Rout is for definite path to component. 
+Link is to open path -> component. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In App.js add routes:
+```angular2html
+ <Route exact path="/" component={Home}/>
+ <Route exact path="/team" component={Team}/>
+ <Route exact path="/team/new" component={NewTeam}/>
+``` 
+Check what happen when do not add "exact" and try to open this paths :) It is important to connect path with correct component. 
 
-### `npm run eject`
+In App.js in a menu add link to routs:
+```angular2html
+<ul className="navbar-nav">
+    <li className="nav-item active">
+        <Link className="nav-link" to="/">Home</Link>
+    </li>
+    <li className="nav-item">
+        <Link className="nav-link" to="/team">Team</Link>
+    </li>
+    <li className="nav-item">
+        <Link className="nav-link" to="/team/new">New team</Link>
+    </li>
+</ul>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+It is possible to get parameter from path: http://localhost:3000/team/detail/1
+Create Details.js:
+```angular2html
+import React from 'react';
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export class TeamDetails extends React.Component {
+    render() {
+        return (
+            <h1>Team detail: {this.props.match.params.id}</h1>
+        )
+    }
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+export default TeamDetails;
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Render method has <Router> element which has to include <div> which then can include <Route> elements. 
 
-## Learn More
+ 
+## Useful links
+- https://github.com/facebook/create-react-app 
+- https://reactjs.org/tutorial/tutorial.html
+- https://www.nafrontendzie.pl/react-router-wersji-4-wszystko-nowa
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
