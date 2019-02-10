@@ -16,25 +16,30 @@ Other files can be deleted or renamed. Files JS and CSS must be located inside s
 
 ## Create team app
 React have a few different kinds of components e.g.: React.Component.
+In tutorial is used JSX in which is possible put a JavaScript - each React element is the JavaScript.
 
+### First components
 Create three components which will use by links:
 - Home.js
+- Team.js
+- NewTeam.js 
+
 ```angular2html
 import React from 'react';
 
-const Home = () => {
-    return (
-        <div className="container">
-            <h1>Home page</h1>
-        </div>
-    );
+export class Home extends React.Component {
+    render() {
+        return (
+            <div className="container">
+                <h1>Home page</h1>
+            </div>
+        );
+    }
 }
 
 export default Home;
 ```
-- Team.js
-- NewTeam.js 
-
+#### Routing
 Routing is defined in component which has links to other components. In our case App.js has menu with links, so this is 
 place where should be defined routes. 
 
@@ -79,7 +84,8 @@ In App.js in a menu add link to routs:
 ```
 
 It is possible to get parameter from path: http://localhost:3000/team/detail/1
-Create Details.js:
+
+Example create TeamDetails.js as below:
 ```angular2html
 import React from 'react';
 
@@ -94,7 +100,29 @@ export class TeamDetails extends React.Component {
 export default TeamDetails;
 ```
 
-Render method has <Router> element which has to include <div> which then can include <Route> elements. 
+Method render has <Router> element which has to include element <div> and then we can include <Route> elements. 
+
+#### Different components in component
+
+To enclose different component in component just add component name as element eg.: <TeamMessage/>
+To pass parameter value to component do this: <TeamMessage message='Hi' />
+and 
+```javascript 1.8
+import React from 'react';
+
+export class TeamMessage extends React.Component {
+    render() {
+        return (
+            <div className="container">
+                <h1>Team message : {this.props.message} </h1>
+            </div>
+        )
+    }
+}
+
+export default TeamMessage;
+```
+
 
  
 ## Useful links

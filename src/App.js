@@ -4,7 +4,7 @@ import './App.css';
 import Team from "./team/Team";
 import NewTeam from "./team/NewTeam";
 import Home from "./Home";
-import TeamDetails from "./team/Details";
+import TeamDetails from "./team/TeamDetails";
 
 class App extends Component {
     render() {
