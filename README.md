@@ -106,7 +106,7 @@ Method render has <Router> element which has to include element <div> and then w
 
 To enclose different component in component just add component name as element eg.: <TeamMessage/>
 To pass parameter value to component do this: <TeamMessage message='Hi' />
-and 
+
 ```javascript 1.8
 import React from 'react';
 
@@ -123,7 +123,50 @@ export class TeamMessage extends React.Component {
 export default TeamMessage;
 ```
 
+To store information use state in react: ```this.state```. First in class you need to initialize state in a constructor.
+```
+class Team extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: null,
+    };
+  }
+  render() {
+      return (
+        <button
+          className="team"
+          onClick={() => this.setState({name: 'Team A'})}
+        >
+          {this.state.name}
+        </button>
+      );
+    }
+}
+```
 
+After calling this.setState ReactJs re-render Team whenever button is clicked.  
+In subclasses we have to always use super in the constructor. To get value from state just write: ```this.state.value```
+
+To collect data from multiple children or communicate between them need share state in a parent component. The parent 
+component pass state back down to the children by using props. 
+
+In React, function components can be write instead of class component. They return only render method 
+and they don't store state information and base only on what props are on input and return what should be rendered. 
+
+```javascript 1.8
+function Team(props) {
+    return (
+            <button
+              className="team"
+              onClick={props.onClick}
+            >
+              {props.name}
+            </button>
+    )
+}
+
+```
  
 ## Useful links
 - https://github.com/facebook/create-react-app 
