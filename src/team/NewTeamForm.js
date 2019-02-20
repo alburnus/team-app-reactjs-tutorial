@@ -1,6 +1,6 @@
 import React from "react";
 
-const API = 'http://localhost:8080/api/team';
+const API = 'http://localhost:8081/api/team';
 
 export default class NewTeamForm extends React.Component {
 
@@ -36,6 +36,7 @@ export default class NewTeamForm extends React.Component {
         })
     }
 
+    // https://reactjs.org/docs/forms.html
     render() {
         return (
             <div className="form-group">

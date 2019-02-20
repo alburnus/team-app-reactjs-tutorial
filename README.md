@@ -4,7 +4,7 @@
 
 Create basic project with simple structure which can be visible on http://localhost:3000
 ```angular2html
-npm create-react-app team-app-reactjs-tutorial
+npx create-react-app team-app-reactjs-tutorial
 cd team-app-reactjs-tutorial
 npm start
 ```
@@ -106,6 +106,7 @@ Method render has <Router> element which has to include element <div> and then w
 
 To enclose different component in component just add component name as element eg.: <TeamMessage/>
 To pass parameter value to component do this: <TeamMessage message='Hi' />
+Inside curly braces can put any valid JavaScript expression: 2+2, callFunction().
 
 ```javascript 1.8
 import React from 'react';
@@ -147,6 +148,9 @@ class Team extends React.Component {
 
 After calling this.setState ReactJs re-render Team whenever button is clicked.  
 In subclasses we have to always use super in the constructor. To get value from state just write: ```this.state.value```
+Never modify state directly, because a component will not re-render. Do not write this: ```this.state.value='any value'``` 
+Correct way is: ```this.setState({value: 'any value'})```
+Only in a constructor is allowed to make assignee: ```this.state```
 
 To collect data from multiple children or communicate between them need share state in a parent component. The parent 
 component pass state back down to the children by using props. 
@@ -167,6 +171,10 @@ function Team(props) {
 }
 
 ```
+Babel compile JSX to React.createElement() call. 
+
+It works because in JavaScript, true && expression always evaluates to expression, and false && expression always evaluates to false.
+Keys in lists help React identify which items have changed, are added, or are removed. 
  
 ## Useful links
 - https://github.com/facebook/create-react-app 

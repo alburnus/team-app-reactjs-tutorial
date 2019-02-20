@@ -1,8 +1,9 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import TeamDetails from "./TeamDetails";
 
 
-const API = 'http://localhost:8080/api/team';
+const API = 'http://localhost:8081/api/team';
 
 export class Team extends React.Component {
 
@@ -20,26 +21,32 @@ export class Team extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <h2>Team list</h2>
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Team name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.teams.map(team =>
+            <Router>
+                <div className="container">
+                    <h2>Team list</h2>
+                    <table className="table table-striped">
+                        <thead>
                         <tr>
-                            <td key={team.name}>
-                                <Link className="nav-link" to="/team/detail/1">{team.name}</Link>
-                            </td>
+                            <th scope="col">Team name</th>
                         </tr>
-                    )}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        {this.state.teams.map(team =>
+                            <tr>
+                                <td key={team.name}>
+                                    <Link className="nav-link" to={'/team/detail/' + team.name}>{team.name}</Link>
+                                </td>
+                            </tr>
+                        )}
+                        </tbody>
+                    </table>
+                    <div>
+                        <Route exact path={"/team/detail/:id"} component={TeamDetails}/>
+                    </div>
+                </div>
+            </Router>
         )
+
     }
 }
 
