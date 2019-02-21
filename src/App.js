@@ -4,7 +4,6 @@ import './App.css';
 import Team from "./team/Team";
 import NewTeam from "./team/NewTeam";
 import Home from "./Home";
-import TeamDetails from "./team/TeamDetails";
 
 class App extends Component {
     render() {
@@ -23,16 +22,12 @@ class App extends Component {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/team/new">New team</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/team/detail/1">Team 1</Link>
-                                </li>
                             </ul>
                         </div>
                     </nav>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/team" component={Team}/>
                     <Route exact path="/team/new" component={NewTeam}/>
-                    <Route path={"/team/detail/:id"} component={TeamDetails}/>
                 </div>
             </Router>
         );
