@@ -10,8 +10,8 @@ export default class Header extends React.Component {
                 <div style={{styleMarginTop}}>
                     <h2>Details</h2>
                     <ul className="list-group">
-                        <li className="list-group-item">Team id (from routing path): {this.props.id}</li>
-                        <li className="list-group-item">Team name: nazwa</li>
+                        <li className="list-group-item">Team id (from routing path): {this.props.team.id}</li>
+                        <li className="list-group-item">Team name: {this.props.team.name}</li>
                     </ul>
                 </div>
             </div>

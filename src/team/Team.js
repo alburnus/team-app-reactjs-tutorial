@@ -9,7 +9,7 @@ export class Team extends React.Component {
 
     constructor() {
         super();
-        this.state = {teams: []}
+        this.state = {teams: [], team: {}}
 
         this.handleClick = this.handleClick.bind(this);
     }
@@ -18,11 +18,14 @@ export class Team extends React.Component {
     componentDidMount() {
         fetch(API)
             .then(result => result.json())
-            .then(teams => this.setState({teams: teams, id: 0}))
+            .then(teams => this.setState({teams: teams}))
     }
 
     handleClick(id) {
-        this.setState({id: id});
+        console.log('id:' + id);
+        fetch(API + "/" + id)
+            .then(result => result.json())
+            .then(team => this.setState({team: team}))
     }
 
     render() {
@@ -53,12 +56,14 @@ export class Team extends React.Component {
                         </tbody>
                     </table>
                     <div>
-                        {/*https://tylermcginnis.com/react-router-pass-props-to-components/*/}
+                        {/*
+                        When we would like pass a parameter to component use render={()=><TeamDetails />}
+                        https://tylermcginnis.com/react-router-pass-props-to-components/
+                        */}
                         <Route
                             exact
                             path={"/team/detail/:id"}
-                            // component={TeamDetails}
-                            render={() => <TeamDetails id={this.state.id}/>}
+                            render={() => <TeamDetails id={this.state.team.id} team={this.state.team}/>}
                         />
                     </div>
                 </div>
