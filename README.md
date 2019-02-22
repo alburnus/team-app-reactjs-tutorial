@@ -16,6 +16,9 @@ Other files can be deleted or renamed. Files JS and CSS must be located inside s
 
 ## Create team app
 React have a few different kinds of components e.g.: React.Component.
+Between Functional and Class components are some differences. 
+Functional components are plain JavaScript function and can't store state. To functional component is possible 
+only pass "props". In Class Components are possible store state and have  hooks.  
 In tutorial is used JSX in which is possible put a JavaScript - each React element is the JavaScript.
 
 ### First components
@@ -180,4 +183,5 @@ Keys in lists help React identify which items have changed, are added, or are re
 - https://github.com/facebook/create-react-app 
 - https://reactjs.org/tutorial/tutorial.html
 - https://www.nafrontendzie.pl/react-router-wersji-4-wszystko-nowa
+- Functional and class components: https://medium.com/@Zwenza/functional-vs-class-components-in-react-231e3fbd7108 
 
