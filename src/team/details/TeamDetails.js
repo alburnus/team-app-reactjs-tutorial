@@ -14,13 +14,17 @@ export default class TeamDetails extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <div className="container">
-                    <Header team={this.props.team}/>
-                    <Members team={this.props.team} mem={this.props.team.teamMembers}/>
+        if (this.props.team.id === undefined) {
+            return null;
+        } else {
+            return (
+                <div>
+                    <div className="container">
+                        <Header team={this.props.team}/>
+                        <Members team={this.props.team}/>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }

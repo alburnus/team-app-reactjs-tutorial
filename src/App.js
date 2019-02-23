@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
-import Team from "./team/Team";
+
 import NewTeam from "./team/NewTeam";
 import {Home} from "./Home";
 import {Menu} from "./menu/Menu";
+import Team from "./team/Team";
 
 class App extends Component {
     render() {
