@@ -1,13 +1,13 @@
 import React from 'react';
 
-const stylePaddingTop = "paddingTop: 150 + 'px'";
+const stylePaddingTop = {paddingTop: 50 + 'px'};
 
 export default class Members extends React.Component {
 
     render() {
         return (
             <div>
-                <div style={{stylePaddingTop}}>
+                <div style={stylePaddingTop}>
                     <h3>Team members</h3>
                     <table className="table table-striped">
                         <thead>
@@ -17,7 +17,7 @@ export default class Members extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.team.teamMembers.map(member =>
+                        {this.props.team.teamMembers != undefined && this.props.team.teamMembers.map(member =>
                             <tr key={member.id}>
                                 <td>
                                     {member.firstName}
@@ -33,5 +33,4 @@ export default class Members extends React.Component {
             </div>
         )
     }
-
 }

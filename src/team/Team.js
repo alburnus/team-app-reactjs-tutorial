@@ -23,6 +23,13 @@ export default class Team extends React.Component {
         this.setState({team: teamToLoad});
     }
 
+    countTeamMembersLength(team) {
+        if (team.teamMembers == undefined) {
+            return 0;
+        }
+        return team.teamMembers.length;
+    }
+
     render() {
         return (
             <Router>
@@ -43,11 +50,13 @@ export default class Team extends React.Component {
                                     {team.name}
                                 </td>
                                 <td>
-                                    {team.teamMembers.length}
+                                    {this.countTeamMembersLength(team)}
                                 </td>
                                 <td>
                                     {/*bind is very important*/}
-                                    <button className="btn btn-primary" type="button" onClick={this.loadTeam.bind(this, team)}>Details</button>
+                                    <button className="btn btn-primary" type="button"
+                                            onClick={this.loadTeam.bind(this, team)}>Details
+                                    </button>
                                 </td>
                             </tr>
                         )}

@@ -1,5 +1,49 @@
 # Quick start to create ReactJs app
 
+## General information
+In ReactJS are two component types:
+- Functional
+- Class
+
+Functional component:
+- is JavaScript function
+- has single argument "props"
+- return React element  
+- name must be written in CamelCase
+- can't has state
+
+```javascript 1.8
+export function Element(props) {
+    return (
+        <li className="nav-item">
+            <Link className="nav-link" to={props.path}>
+                {props.name}
+            </Link>
+        </li>
+    )
+}
+```
+
+Class component:
+- is ES6 class which extends React.Component
+- has state
+- has hooks
+
+```javascript 1.8
+export default class TeamDetails extends React.Component {
+    render() {
+            return (
+                <div>
+                    <div className="container">
+                        <Header team={this.props.team}/>
+                        <Members team={this.props.team}/>
+                    </div>
+                </div>
+            )
+    }
+}
+```
+
 ## Commands to create a project
 
 Create basic project with simple structure which can be visible on http://localhost:3000
@@ -13,13 +57,6 @@ To build project you need this file:
 - public/index.html
 - src/index.js
 Other files can be deleted or renamed. Files JS and CSS must be located inside src directory.
-
-## Create team app
-React have a few different kinds of components e.g.: React.Component.
-Between Functional and Class components are some differences. 
-Functional components are plain JavaScript function and can't store state. To functional component is possible 
-only pass "props". In Class Components are possible store state and have  hooks.  
-In tutorial is used JSX in which is possible put a JavaScript - each React element is the JavaScript.
 
 ### First components
 Create three components which will use by links:

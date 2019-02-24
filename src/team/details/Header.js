@@ -1,13 +1,13 @@
 import React from 'react';
 
-const styleMarginTop = "marginTop: 150 + 'px'";
+const styleMarginTop = {paddingTop: 50 + 'px'};
 
 export default class Header extends React.Component {
 
     render() {
         return (
             <div>
-                <div style={{styleMarginTop}}>
+                <div style={styleMarginTop}>
                     <h3>Details</h3>
                     <ul className="list-group">
                         <li className="list-group-item">Team id: {this.props.team.id}</li>
