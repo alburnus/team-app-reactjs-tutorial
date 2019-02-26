@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import TeamDetails from "./details/TeamDetails";
 import {MessageAlert} from "../component/MessageAlert";
+import {TeamRowHeader} from "./TeamRowHeader";
 
 const API = 'http://localhost:8081/api/team';
 
@@ -19,32 +20,17 @@ export default class Team extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchAll();
+    }
+
+    fetchAll() {
         fetch(API)
             .then(result => result.json())
             .then(teams => this.setState({teams: teams}))
     }
 
-    loadTeam(teamToLoad) {
+    showTeamDetail(teamToLoad) {
         this.setState({team: teamToLoad});
-    }
-
-    delete(id) {
-        fetch(API + "/" + id, {
-            method: 'DELETE'
-        })
-            .then(() => {
-                this.setState({
-                    response: {
-                        type: 'success',
-                        showMessage: true
-                    }
-                });
-                fetch(API)
-                    .then(result => result.json())
-                    .then(teams => this.setState({teams: teams}));
-            })
-            .catch(() => console.log("Error"));
-        this.hideMessage();
     }
 
     countTeamMembersLength(team) {
@@ -54,19 +40,35 @@ export default class Team extends React.Component {
         return team.teamMembers.length;
     }
 
+    delete(id) {
+        fetch(API + "/" + id, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                this.setResponseState('success', true)
+                this.fetchAll();
+            })
+            .catch(() => this.setResponseState('danger', true));
+        this.hideMessage();
+    }
+
     hideMessage() {
         setTimeout(
             function () {
-                this.setState({
-                    response: {
-                        type: '',
-                        showMessage: false
-                    }
-                });
+                this.setResponseState('', false);
             }
                 .bind(this),
             3000
         );
+    }
+
+    setResponseState(type, showMessage) {
+        this.setState({
+            response: {
+                type: type,
+                showMessage: showMessage
+            }
+        });
     }
 
     render() {
@@ -77,11 +79,7 @@ export default class Team extends React.Component {
                     <h2>Team list</h2>
                     <table className="table table-striped">
                         <thead>
-                        <tr>
-                            <th scope="col">Team name</th>
-                            <th scope="col">Team size</th>
-                            <th scope="col">Operations</th>
-                        </tr>
+                        <TeamRowHeader/>
                         </thead>
                         <tbody>
                         {this.state.teams.map(team =>
@@ -95,7 +93,7 @@ export default class Team extends React.Component {
                                 <td>
                                     {/*bind is very important*/}
                                     <button className="btn btn-primary" type="button"
-                                            onClick={this.loadTeam.bind(this, team)}>Details
+                                            onClick={this.showTeamDetail.bind(this, team)}>Details
                                     </button>
                                     <button className="btn btn-danger" type="button"
                                             onClick={this.delete.bind(this, team.id)}>Delete
