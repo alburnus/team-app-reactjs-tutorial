@@ -34,7 +34,12 @@ export default class Team extends React.Component {
     }
 
     showTeamDetail(teamToLoad) {
-        this.setState({team: teamToLoad});
+        if (this.state.team == undefined || this.state.team.id != teamToLoad.id) {
+            this.setState({team: teamToLoad});
+        } else {
+            this.setState({team: {}});
+        }
+
     }
 
     delete(id) {
