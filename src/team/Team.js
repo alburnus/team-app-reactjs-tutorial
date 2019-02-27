@@ -3,10 +3,12 @@ import {BrowserRouter as Router} from "react-router-dom";
 import TeamDetails from "./details/TeamDetails";
 import {MessageAlert} from "../component/MessageAlert";
 import {TeamRowHeader} from "./TeamRowHeader";
+import TeamList from "./TeamList";
 
 const API = 'http://localhost:8081/api/team';
 
 export default class Team extends React.Component {
+
     constructor() {
         super();
         this.state = {
@@ -17,6 +19,8 @@ export default class Team extends React.Component {
                 showMessage: false
             }
         }
+        this.showTeamDetail = this.showTeamDetail.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     componentDidMount() {
@@ -31,13 +35,6 @@ export default class Team extends React.Component {
 
     showTeamDetail(teamToLoad) {
         this.setState({team: teamToLoad});
-    }
-
-    countTeamMembersLength(team) {
-        if (team.teamMembers == undefined) {
-            return 0;
-        }
-        return team.teamMembers.length;
     }
 
     delete(id) {
@@ -83,23 +80,12 @@ export default class Team extends React.Component {
                         </thead>
                         <tbody>
                         {this.state.teams.map(team =>
-                            <tr key={team.id}>
-                                <td>
-                                    {team.name}
-                                </td>
-                                <td>
-                                    {this.countTeamMembersLength(team)}
-                                </td>
-                                <td>
-                                    {/*bind is very important*/}
-                                    <button className="btn btn-primary" type="button"
-                                            onClick={this.showTeamDetail.bind(this, team)}>Details
-                                    </button>
-                                    <button className="btn btn-danger" type="button"
-                                            onClick={this.delete.bind(this, team.id)}>Delete
-                                    </button>
-                                </td>
-                            </tr>
+                            <TeamList
+                                key={team.id}
+                                team={team}
+                                detail={this.showTeamDetail}
+                                delete={this.delete}
+                            />
                         )}
                         </tbody>
                     </table>
