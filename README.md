@@ -10,7 +10,7 @@ Functional component:
 - has single argument "props"
 - return React element  
 - name must be written in CamelCase
-- can't has state
+- doesn't have state
 
 ```javascript 1.8
 export function Element(props) {
@@ -45,21 +45,20 @@ export default class TeamDetails extends React.Component {
 ```
 
 ## Commands to create a project
-
-Create basic project with simple structure which can be visible on http://localhost:3000
+To create basic project with simple structure I used "create-react-app". App is available on http://localhost:3000
 ```angular2html
 npx create-react-app team-app-reactjs-tutorial
 cd team-app-reactjs-tutorial
 npm start
 ```
 
-To build project you need this file:
+To build project you need only this files:
 - public/index.html
 - src/index.js
 Other files can be deleted or renamed. Files JS and CSS must be located inside src directory.
 
 ### First components
-Create three components which will use by links:
+I will create three components which will used in navigation (routing):
 - Home.js
 - Team.js
 - NewTeam.js 
