@@ -44,7 +44,6 @@ export default class TeamList extends React.Component {
                     </button>
                 </td>
             </tr>
-
         )
     }
 }

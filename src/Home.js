@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Home(props) {
+export function Home() {
     return (
         <div className="container">
             <h2>TeamApp</h2>

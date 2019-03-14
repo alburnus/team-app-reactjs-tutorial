@@ -9,8 +9,8 @@ const API = 'http://localhost:8081/api/team';
 
 export default class Team extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             teams: [],
             team: {},
@@ -75,7 +75,6 @@ export default class Team extends React.Component {
 
     render() {
         return (
-            <Router>
                 <div className="container">
                     <MessageAlert show={this.state.response.showMessage} type={this.state.response.type}/>
                     <h2>Team list</h2>
@@ -98,7 +97,6 @@ export default class Team extends React.Component {
                         <TeamDetails team={this.state.team}/>
                     </div>
                 </div>
-            </Router>
         )
     }
 }
