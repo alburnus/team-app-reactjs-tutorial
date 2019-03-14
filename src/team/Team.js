@@ -1,71 +1,102 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import TeamDetails from "./details/TeamDetails";
-
+import {MessageAlert} from "../component/MessageAlert";
+import {TeamRowHeader} from "./TeamRowHeader";
+import TeamList from "./TeamList";
 
 const API = 'http://localhost:8081/api/team';
 
-export class Team extends React.Component {
+export default class Team extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {teams: []}
-
-        this.handleClick = this.handleClick.bind(this);
+    constructor(props) {
+        super(props);
+        this.state = {
+            teams: [],
+            team: {},
+            response: {
+                type: '',
+                showMessage: false
+            }
+        }
+        this.showTeamDetail = this.showTeamDetail.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
-    // This is lifecycle method which is best to call API and fetch data
     componentDidMount() {
+        this.fetchAll();
+    }
+
+    fetchAll() {
         fetch(API)
             .then(result => result.json())
-            .then(teams => this.setState({teams: teams, id: 0}))
+            .then(teams => this.setState({teams: teams}))
     }
 
-    handleClick(id) {
-        this.setState({id: id});
+    showTeamDetail(teamToLoad) {
+        if (this.state.team == undefined || this.state.team.id != teamToLoad.id) {
+            this.setState({team: teamToLoad});
+        } else {
+            this.setState({team: {}});
+        }
+
+    }
+
+    delete(id) {
+        fetch(API + "/" + id, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                this.setResponseState('success', true)
+                this.fetchAll();
+            })
+            .catch(() => this.setResponseState('danger', true));
+        this.hideMessage();
+    }
+
+    hideMessage() {
+        setTimeout(
+            function () {
+                this.setResponseState('', false);
+            }
+                .bind(this),
+            3000
+        );
+    }
+
+    setResponseState(type, showMessage) {
+        this.setState({
+            response: {
+                type: type,
+                showMessage: showMessage
+            }
+        });
     }
 
     render() {
         return (
-            <Router>
                 <div className="container">
+                    <MessageAlert show={this.state.response.showMessage} type={this.state.response.type}/>
                     <h2>Team list</h2>
                     <table className="table table-striped">
                         <thead>
-                        <tr>
-                            <th scope="col">Team name</th>
-                            <th scope="col">Team size</th>
-                        </tr>
+                        <TeamRowHeader/>
                         </thead>
                         <tbody>
                         {this.state.teams.map(team =>
-                            <tr key={team.id} onClick={this.handleClick.bind(this, team.id)}>
-                                <td>
-                                    <Link className="nav-link"
-                                          to={'/team/detail/' + team.id}>{team.name}</Link>
-                                </td>
-                                <td>
-                                    <Link className="nav-link"
-                                          to={'/team/detail/' + team.id}>{team.teamMembers.length}</Link>
-                                </td>
-                            </tr>
+                            <TeamList
+                                key={team.id}
+                                team={team}
+                                detail={this.showTeamDetail}
+                                delete={this.delete}
+                            />
                         )}
                         </tbody>
                     </table>
                     <div>
-                        {/*https://tylermcginnis.com/react-router-pass-props-to-components/*/}
-                        <Route
-                            exact
-                            path={"/team/detail/:id"}
-                            // component={TeamDetails}
-                            render={() => <TeamDetails id={this.state.id}/>}
-                        />
+                        <TeamDetails team={this.state.team}/>
                     </div>
                 </div>
-            </Router>
         )
-
     }
 }
-
-export default Team;
