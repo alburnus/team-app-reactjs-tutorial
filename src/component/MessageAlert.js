@@ -6,9 +6,13 @@ export function MessageAlert(props) {
     if (props.show === true) {
         return (
             <div className={className} role="alert">
-                Team deleted.
+                {props.message}
             </div>
         );
     }
-    return null;
+    return (
+        <div className="alert alert-light" role="alert">
+            &nbsp;
+        </div>
+    );
 }

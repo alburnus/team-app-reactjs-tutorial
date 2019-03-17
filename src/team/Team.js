@@ -47,10 +47,10 @@ export default class Team extends React.Component {
             method: 'DELETE'
         })
             .then(() => {
-                this.setResponseState('success', true)
+                this.setResponseState('success', true, 'Deleted team with id:' + id)
                 this.fetchAll();
             })
-            .catch(() => this.setResponseState('danger', true));
+            .catch(() => this.setResponseState('danger', true, "Can not delete team with id:" + id));
         this.hideMessage();
     }
 
@@ -64,11 +64,12 @@ export default class Team extends React.Component {
         );
     }
 
-    setResponseState(type, showMessage) {
+    setResponseState(type, showMessage, message) {
         this.setState({
             response: {
                 type: type,
-                showMessage: showMessage
+                showMessage: showMessage,
+                message: message
             }
         });
     }
@@ -76,7 +77,7 @@ export default class Team extends React.Component {
     render() {
         return (
                 <div className="container">
-                    <MessageAlert show={this.state.response.showMessage} type={this.state.response.type}/>
+                    <MessageAlert show={this.state.response.showMessage} type={this.state.response.type} message={this.state.response.message}/>
                     <h2>Team list</h2>
                     <table className="table table-striped">
                         <thead>
