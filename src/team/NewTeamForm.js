@@ -16,12 +16,9 @@ export default class NewTeamForm extends React.Component {
     }
 
     handleChange(event) {
-        const name = event.target.name;
-        const value = event.target.value;
-
         this.setState({
             team: {
-                [name]: value
+                [event.target.name]: event.target.value
             }
         });
     }
